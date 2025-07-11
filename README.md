@@ -18,6 +18,11 @@ A Flask web app that uses TextBlob to analyze user-submitted text and determine 
 
 ---
 
+## 📃 License
+
+This project is licensed under the MIT License.
+
+
 ## 🚀 Installation
 
 Clone the repo and install requirements:
@@ -26,4 +31,6 @@ Clone the repo and install requirements:
 git clone https://github.com/neemabhandari18/Sentiment-Analysis-App.git
 cd Sentiment-Analysis-App
 pip install -r requirements.txt
+
+
 python -m textblob.download_corpora
