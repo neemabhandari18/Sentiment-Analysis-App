@@ -1,34 +1,28 @@
+# 🧠 Sentiment Analysis Web App
 
-
-#  Sentiment-Analysis-App
-
-This is a simple and clean web application built using **Flask** and **TextBlob** that performs **sentiment analysis** on user-input text. It analyzes the text and returns the **sentiment** (Positive/Negative/Neutral), **polarity**, **subjectivity**, and **confidence level** based on subjectivity.
+A Flask web app that uses TextBlob to analyze the sentiment of text input.
 
 ---
 
 ## 📌 Features
 
-- Analyze sentiment from user input
-- Displays:
-  - Sentiment (Positive / Negative / Neutral)
-  - Polarity (scale -1 to 1)
-  - Subjectivity (scale 0 to 1)
+- Input any text and analyze it
+- Output:
+  - Sentiment: Positive / Negative / Neutral
+  - Polarity (range -1 to 1)
+  - Subjectivity (range 0 to 1)
   - Word Count
-  - Confidence level (High/Medium/Low)
-- Auto-centers input form and results
-- Session-based history tracking (in memory)
-- Responsive and modern UI
+  - Confidence (based on subjectivity)
+- UI built with HTML/CSS (no JS)
+- History saved during session
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Installation
 
-### 📦 Prerequisites
-
-- Python 3.x installed
-- Install required packages:
+Clone the repository and install requirements:
 
 ```bash
-pip install flask textblob
-python -m textblob.download_corpora
-
+git clone https://github.com/neemabhandari18/Sentiment-Analysis-App.git
+cd Sentiment-Analysis-App
+pip install -r requirements.txt
