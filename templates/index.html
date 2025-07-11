@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta settings for character encoding and page title -->
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis App</title>
+
+    <!-- Internal CSS for styling the entire page -->
+    <style>
+        body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f4f4f9;
+
+        /* Flexbox for full-page centering */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;  /* Vertical center */
+        align-items: center;      /* Horizontal center */
+        min-height: 100vh;        /* Full viewport height */
+        margin: 0;
+        padding: 0;
+        }
+
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Styling the form box */
+        form {
+            width: 70%;
+            max-width: 700px;
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        /* Styling the text input area */
+        textarea {
+            width: 100%;
+            height: 160px;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        /* Styling the submit button */
+        button {
+            background-color: #5b6ef5; /* Blue */
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Button hover effect */
+        button:hover {
+            background-color: #4452c7; /* Darker blue */
+        }
+
+        /* Container for result display */
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            width: 70%;
+            max-width: 700px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Sentiment color classes */
+        .positive { color: green; }
+        .negative { color: red; }
+        .neutral  { color: gray; }
+
+        /* Styling for analysis detail text */
+        .stat {
+            margin-top: 10px;
+            font-size: 17px;
+            color: #444;
+        }
+
+        /* Footer section styling */
+        .footer {
+            margin-top: 40px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- App title -->
+    <h1>🧠 Sentiment Analysis</h1>
+
+    <!-- Text input form (submitted via POST) -->
+    <form method="POST">
+        <!-- Textarea: keeps old input if form was submitted -->
+        <textarea name="text" placeholder="Type something to analyze..." required>
+            {{ request.form.text if request.method == 'POST' else '' }}
+        </textarea>
+
+        <!-- Submit button -->
+        <button type="submit">Analyze</button>
+    </form>
+
+    <!-- If sentiment analysis result is available, display it -->
+    {% if sentiment %}
+        <div class="result">
+            <!-- Sentiment (Positive / Negative / Neutral) -->
+            <p><strong>Sentiment:</strong> 
+                <span class="{{ sentiment|lower }}">{{ sentiment }}</span>
+            </p>
+
+            <!-- Polarity score (range -1 to 1) -->
+            <p class="stat"><strong>Polarity:</strong> {{ polarity }} (ranges -1 to 1)</p>
+
+            <!-- Subjectivity score (range 0 to 1) -->
+            <p class="stat"><strong>Subjectivity:</strong> {{ subjectivity }} (0 = objective, 1 = subjective)</p>
+
+            <!-- Word count of the input -->
+            <p class="stat"><strong>Word Count:</strong> {{ word_count }}</p>
+
+            <!-- Confidence message based on subjectivity level -->
+            <p class="stat">
+                <strong>Confidence:</strong>
+                {% if subjectivity < 0.3 %}
+                    High (More objective)
+                {% elif subjectivity < 0.6 %}
+                    Medium (Somewhat subjective)
+                {% else %}
+                    Low (Highly subjective)
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
+
+    <!-- Page footer -->
+    <div class="footer">
+        &copy; 2025 Sentiment Analyzer | Built with Flask + TextBlob
+    </div>
+
+</body>
+</html>
